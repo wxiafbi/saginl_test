@@ -3,7 +3,7 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QWidget
 from PySide6 import QtGui
-import romdom
+import romdom1
 # Important:
 # You need to run the following command to generate the ui_form.py file
 #     pyside6-uic form.ui -o ui_form.py, or
@@ -16,7 +16,10 @@ class Widget(QWidget):
         self.ui = Ui_Widget()
         self.ui.setupUi(self)
         
-        self.ui.pushButton.clicked.connect(romdom.RandomGenerator.generate_random)
+        self.random_generator = romdom1.RandomGenerator()
+        self.random_generator.my_signal.connect(self.custom_print)
+        self.ui.pushButton.clicked.connect(romdom1.RandomGenerator.generate_random)
+        # self.random_generator.my_signal.connect(self.custom_print)
     
     def custom_print(self, *args, **kwargs):
         output = " ".join(map(str, args)) + "\n"
